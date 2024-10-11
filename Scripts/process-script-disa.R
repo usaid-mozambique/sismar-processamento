@@ -15,6 +15,7 @@ library(glue)
 library(googledrive)
 library(googlesheets4)
 library(readxl)
+library(openxlsx)
 library(sismar)
 library(mozR)
 
@@ -23,9 +24,9 @@ library(mozR)
 
 ref_id <- "3443d374"
 
-period <- "2024-01-20"
-path_cv <- glue::glue("Data/disa/Relatorio Mensal de Carga Viral Janeiro 2024.xlsx")
-path_dpi <- glue::glue("Data/disa/Relatorio Mensal de DPI Janeiro 2024.xlsx")
+period <- "2023-02-20"
+path_cv <- glue::glue("Data/disa/Relatorio Mensal de Carga Viral Fevereiro 2023.xlsx")
+path_dpi <- glue::glue("Data/disa/Relatorio Mensal de DPI Fevereiro 2023.xlsx")
 
 
 # LOAD & MUNGE -------------------------------------------------------------------
@@ -43,16 +44,29 @@ write_csv(df_dpi, glue("Data/disa/processed/disa_dpi_{period}.csv"))
 # COMPILE MONTHLY DATA -----------------------------------------------------------
 
 compile_disa_cv <-
-  list.files("Data/disa/processed/", pattern = "^disa_cv", full.names = TRUE) %>%
-  map(~ read_csv(.x)) %>%
+  list.files("Data/disa/processed/", pattern = "^disa_cv", full.names = TRUE) |>
+  map(~ read_csv(.x)) |>
   reduce(rbind)
 
 compile_disa_dpi <-
-  list.files("Data/disa/processed/", pattern = "^disa_dpi", full.names = TRUE) %>%
-  map(~ read_csv(.x)) %>%
+  list.files("Data/disa/processed/", pattern = "^disa_dpi", full.names = TRUE) |>
+  map(~ read_csv(.x)) |>
   reduce(rbind)
 
 # WRITE COMPILED DATA TO DISK -----------------------------------------------------
 
+
 write_csv(compile_disa_cv, "Dataout/disa_cv.csv")
 write_csv(compile_disa_dpi, "Dataout/disa_dpi.csv")
+
+
+# US MAPPING CHECK --------------------------------------------------------
+
+
+df_id_check <- id_check_disa(compile_disa_cv,
+                             period_window = 1)
+
+write.xlsx(df_id_check,
+           {"Documents/disa_id_check.xlsx"},
+           overwrite = TRUE)
+
