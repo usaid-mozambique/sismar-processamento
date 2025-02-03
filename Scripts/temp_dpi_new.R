@@ -22,25 +22,31 @@ library(mozR)
 # GLOBAL VARIABLES --------------------------------------------------------
 
 
-ref_id <- "3443d374"
-
-period <- "2024-12-20"
-path_cv <- glue::glue("Data/disa/Relatorio Mensal de Carga Viral Dezembro 2024.xlsx")
-path_dpi <- glue::glue("Data/disa/Relatorio Mensal de DPI December 2024.xlsx")
-
-
 
 # LOAD & MUNGE -------------------------------------------------------------------
 
 
-df_cv <- process_disa_cv(path_cv, period)
-df_dpi <- process_disa_dpi(path_dpi, period)
+# FUNCTION ----------------------------------------------------------------
+
+path_dpi <- glue::glue("Data/disa/Relatorio Mensal de DPI December 2024 template.xlsx")
+month <- "2024-12-20"
 
 
-# WRITE MONTHLY TO DISK -----------------------------------------------------------
+df_dpi <- process_disa_dpi(file = path_dpi,
+                           period = month,
+                           type = "new")
 
-write_csv(df_cv, glue("Data/disa/processed/disa_cv_{period}.csv"))
-write_csv(df_dpi, glue("Data/disa/processed/disa_dpi_{period}.csv"))
+# df_dpi <- process_disa_dpi(file = path_dpi,
+#                            period = month,
+#                            type = "new")
+
+
+# OTHER -------------------------------------------------------------------
+
+
+write_csv(df_dpi, glue("Data/disa/processed/disa_dpi_{month}.csv"),
+          na = "")
+
 
 # COMPILE MONTHLY DATA -----------------------------------------------------------
 

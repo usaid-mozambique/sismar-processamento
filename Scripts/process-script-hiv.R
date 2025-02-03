@@ -54,7 +54,7 @@ load_secrets()
   output_hiv_its <- glue::glue("Data/sismar/processed/hiv_its_{year}.txt")
   output_hiv_ajmhcmm <- glue::glue("Data/sismar/processed/ajm_hc_mm_{year}.txt")
   output_smi_ccr <- glue::glue("Data/sismar/processed/smi_ccr_{year}.txt")
-
+  output_smi_cpn <- glue::glue("Data/sismar/processed/smi_cpn_{year}.txt")
 
 
   # PROCESS PORTUGUESE-------------------------------------------------------------------
