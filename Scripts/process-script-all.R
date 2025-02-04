@@ -64,7 +64,6 @@ processed_data <-
   list_inputs |>
   imap(~ {
     processed <- sismar::process_sisma_export(.y) # .y is for file path processing
-
     processed |> mutate(file_name = .y) # add variable for file name and path
   }) |>
   bind_rows() |>
