@@ -52,23 +52,41 @@ df <- df |>
 
 
 
-# Required columns
-required_cols <- c("disaggregate_sub", "period_cohort", "sub_group", "period")
+add_missing_vars <- function(df) {
 
-# Identify missing columns
-missing_cols <- setdiff(required_cols, names(df))
+  # Required variables
+  required_cols <- c("period_cohort",
+                     "age",
+                     "age_coarse",
+                     "sex",
+                     "sub_group",
+                     "result_status",
+                     "disaggregate",
+                     "disaggregate_sub"
+  )
 
-# Define NA values with explicit types
-na_values <- list(
-  disaggregate_sub = NA_character_,  # Character
-  period_cohort = NA_integer_,       # Integer
-  sub_group = NA_character_,         # Character
-  period = as.Date(NA)               # Numeric (double)
-)
+  # Identify missing variables
+  missing_cols <- setdiff(required_cols, names(df))
 
-# Ensure missing columns exist with the correct types
-df <- df |>
-  bind_cols(tibble(!!!setNames(lapply(missing_cols, function(col) na_values[[col]]), missing_cols)))
+  # Define NA values with explicit types
+  add_cols <- list(
+    period_cohort = as.Date(NA),
+    age = NA_character_,
+    age_coarse = NA_character_,
+    sex = NA_character_,
+    result_status = NA_character_,
+    disaggregate = NA_character_,
+    disaggregate_sub = NA_character_,
+    sub_group = NA_character_
+  )
+
+  # Ensure missing variables exist with the correct data types
+  df <- df |>
+    bind_cols(tibble(!!!setNames(lapply(missing_cols, function(col) add_cols[[col]]), missing_cols)))
+
+  return(df)
+
+}
 
 
 
