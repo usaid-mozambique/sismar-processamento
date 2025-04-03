@@ -23,7 +23,7 @@ load_secrets()
 
   # USER INPUT --------------------------------------------------------------
 
-  year <- "2024"
+  year <- "2025"
 
   # INPUT/OUTPUT PATHS ------------------------------------------------------------
 
@@ -59,48 +59,48 @@ load_secrets()
 
   # PROCESS PORTUGUESE-------------------------------------------------------------------
 
-  df_ats <- bind_rows(process_sisma_export(path_ats_results),
-                      process_sisma_export(path_ats_hist),
-                      process_sisma_export(path_ats_ci),
-                      process_sisma_export(path_ats_ccsd),
-                      process_sisma_export(path_ats_saaj),
-                      process_sisma_export(path_ats_smi)) |>
+  df_ats <- bind_rows(process_sisma_export(path_ats_results), #ok
+                      process_sisma_export(path_ats_hist), #ok
+                      process_sisma_export(path_ats_ci), #ok
+                      process_sisma_export(path_ats_ccsd), #ok
+                      process_sisma_export(path_ats_saaj), #fix!!!!!!!!  #ok
+                      process_sisma_export(path_ats_smi)) |> #fix!!!!!!!! #ok
     write_tsv(output_ats)
 
 
-  df_autoteste <- process_sisma_export(path_ats_auto) |>
+  df_autoteste <- process_sisma_export(path_ats_auto) |> #ok
     write_tsv(output_ats_auto)
 
 
-  df_apss <- process_sisma_export(path_hiv_apss) |>
+  df_apss <- process_sisma_export(path_hiv_apss) |> #ok
     write_tsv(output_hiv_apss)
 
 
-  df_its <- process_sisma_export(path_hiv_its) |>
+  df_its <- process_sisma_export(path_hiv_its) |> #ok
     write_tsv(output_hiv_its)
 
 
-  df_prep <- process_sisma_export(path_hiv_prep) |>
+  df_prep <- process_sisma_export(path_hiv_prep) |> #ok
     write_tsv(output_hiv_prep)
 
 
-  df_tarv <- process_sisma_export(path_hiv_tarv) |>
+  df_tarv <- process_sisma_export(path_hiv_tarv) |> #fix!!!!!!!! #ok
     write_tsv(output_hiv_tarv)
 
 
-  df_dah <- process_sisma_export(path_hiv_dah) |>
+  df_dah <- process_sisma_export(path_hiv_dah) |> #ok
     write_tsv(output_hiv_dah)
 
 
-  df_ajmhcmm <- process_sisma_export(path_hiv_ajmhcmm) |>
+  df_ajmhcmm <- process_sisma_export(path_hiv_ajmhcmm) |> #ok
     write_tsv(output_hiv_ajmhcmm)
 
 
-  df_smi_cpn <- process_sisma_export(path_smi_cpn) |>
+  df_smi_cpn <- process_sisma_export(path_smi_cpn) |> #ok
     write_tsv(output_smi_cpn)
 
 
-  df_smi_ccr <- process_sisma_export(path_smi_ccr) |>
+  df_smi_ccr <- process_sisma_export(path_smi_ccr) |> #ok
     write_tsv(output_smi_ccr)
 
 

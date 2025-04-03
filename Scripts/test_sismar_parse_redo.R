@@ -10,15 +10,10 @@ year <- "2024"
 path_ats_results <- glue::glue("Data/sismar/ats_resultados_{year}.csv")
 
 
-ensure_columns <- function(df, required_cols) {
-  missing_cols <- setdiff(required_cols, names(df))  # Identify missing columns
-  df <- df %>%
-    mutate(across(all_of(required_cols[required_cols %in% names(df)]), ~ .)) %>%  # Keep existing columns unchanged
-    mutate(across(all_of(missing_cols), ~ NA))  # Create missing columns with NA
+test <- process_sisma_export(path_ats_results)
 
-  return(df)
-}
 
+parse_sisma_ats_results
 
 # LOAD DATA ---------------------------------------------------------------
 
@@ -66,7 +61,7 @@ add_missing_vars <- function(df) {
   )
 
   # Identify missing variables
-  missing_cols <- setdiff(required_cols, names(df))
+  missing_cols <- dplyr::setdiff(required_cols, names(df))
 
   # Define NA values with explicit types
   add_cols <- list(
@@ -82,7 +77,7 @@ add_missing_vars <- function(df) {
 
   # Ensure missing variables exist with the correct data types
   df <- df |>
-    bind_cols(tibble(!!!setNames(lapply(missing_cols, function(col) add_cols[[col]]), missing_cols)))
+    dplyr::bind_cols(tibble::tibble(!!!setNames(lapply(missing_cols, function(col) add_cols[[col]]), missing_cols)))
 
   return(df)
 
@@ -93,6 +88,8 @@ add_missing_vars <- function(df) {
 
 
 
+
+test <- df |> add_missing_vars()
 
 
 

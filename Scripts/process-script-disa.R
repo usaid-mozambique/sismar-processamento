@@ -24,9 +24,9 @@ library(mozR)
 
 ref_id <- "3443d374"
 
-period <- "2024-12-20"
-path_cv <- glue::glue("Data/disa/Relatorio Mensal de Carga Viral Dezembro 2024.xlsx")
-path_dpi <- glue::glue("Data/disa/Relatorio Mensal de DPI December 2024.xlsx")
+period <- "2025-01-20"
+path_cv <- glue::glue("Data/disa/Relatorio Mensal de Carga Viral Janeiro 2025.xlsx")
+path_dpi <- glue::glue("Data/disa/Relatorio Mensal de DPI Janeiro 2025.xlsx")
 
 
 
